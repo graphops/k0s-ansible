@@ -3,41 +3,31 @@ all:
   children:
     initial_controller:
       hosts:
-        halloumi:
-    # controller:
-    #   hosts:
-    #     feather:
+        k0s-1:
+    controller:
+      hosts:
+        k0s-2:
+        k0s-3:
     worker:
       hosts:
-        halloumi:
-  vars:
-    ansible_ssh_port: 987
-    ansible_user: root
-    hardened_ssh_port: 987
-    main_user: alice
-    become: true
+        k0s-4:
+        k0s-5:
+        k0s-6:
+        k0s-7:
   hosts:
-    feather:
-      ansible_host: 142.132.135.204
-    halloumi:
-      ansible_host: 135.181.178.24
-
-# host_init_group:
-#   hosts: &hetzner_hosts
-#     emerald:
-#       ansible_host: 142.132.132.82
-#     feather:
-#       ansible_host: 142.132.135.204
-#     giraffe:
-#       ansible_host: 65.21.112.199
-#     halloumi:
-#       ansible_host: 135.181.178.24
-#     iris: 
-#       ansible_host: 135.181.181.107
-#   vars:
-#     ansible_ssh_port: 22
-#     ansible_user: root
-#     hardened_ssh_port: 987
-#     main_user: alice
-#     become: true
-   
+    k0s-1:
+      ansible_host: 192.168.64.32
+    k0s-2:
+      ansible_host: 192.168.64.33
+    k0s-3:
+      ansible_host: 192.168.64.56
+    k0s-4:
+      ansible_host: 192.168.64.57
+    k0s-5:
+      ansible_host: 192.168.64.58
+    k0s-6:
+      ansible_host: 192.168.64.60
+    k0s-7:
+      ansible_host: 192.168.64.61
+  vars:
+    ansible_user: k0s

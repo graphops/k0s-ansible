@@ -2,10 +2,11 @@
 - name: Check if host is already a controller
   shell: systemctl cat k0scontroller.service
   register: k0scontroller
+  ignore_errors: yes
 
 - name: Create k0s initial controller service with install command
   register: install_initial_controller_cmd
-  command: k0s install controller --config {{ k0s_config_dir }}/k0s.yaml {{ extra_args | default(omit) }}
+  command: k0s install controller --config {{ k0s_config_dir }}/k0s.yaml --enable-worker {{ extra_args | default(omit) }}
   changed_when: install_initial_controller_cmd | length > 0
   when: k0scontroller is failed
 
