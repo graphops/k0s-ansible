@@ -1,6 +1,5 @@
 ---
-
-- hosts: all
+- hosts: k0s
   name: Download k0s on all nodes
   become: yes
   roles:

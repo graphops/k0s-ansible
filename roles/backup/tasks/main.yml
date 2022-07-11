@@ -1,0 +1,28 @@
+---
+- name: set k0s_backup_dir fact
+  set_fact:
+    k0s_backup_dir: "/k0s-backup"
+  run_once: true
+  when: k0s_backup_dir is not defined
+
+- name: create k0s_backup_dir path
+  file:
+    path: "{{ k0s_backup_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: 0775
+
+- name: Backup k0s controller 
+  register: backup_controller_state
+  command: k0s backup --save-path={{ k0s_backup_dir }} -
+
+- name: List backups data dir contents
+  find:
+    paths: "{{ k0s_backup_dir }}"
+    recurse: yes
+    file_type: any
+  register: k0s_backup_file
+
+- debug: 
+    msg: "{{ k0s_backup_file }}"
+
