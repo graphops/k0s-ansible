@@ -4,15 +4,17 @@ metadata:
   name: k0s
 spec:
   api:
-    address: {{ ansible_host }}
+    externalAddress: {{ lb_address }}
+    address: {{ ansible_default_ipv4.address }}
     port: 6443
     k0sApiPort: 9443
     sans:
-    - {{ ansible_host }}
+    - {{ lb_address }}
   storage:
-    type: etcd
     etcd:
-      peerAddress: localhost
+      peerAddress: {{ ansible_default_ipv4.address }}
+      externalCluster: null
+    type: etcd
   network:
     podCIDR: 10.244.0.0/16
     serviceCIDR: 10.96.0.0/12
