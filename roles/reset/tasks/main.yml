@@ -1,6 +1,7 @@
 ---
 
 - name: Disable k0s service
+  become: true
   systemd:
     name: "{{ item }}"
     state: stopped

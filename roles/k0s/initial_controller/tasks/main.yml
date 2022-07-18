@@ -23,12 +23,12 @@
 
 # - name: Wait for k8s apiserver
 #   wait_for:
-#     host: localhost
+#     host: "{{ lb_address }}"
 #     port: 6443
 #     delay: 15
 #     timeout: 180
 - name: Wait for node to come online
-  shell: sleep 60
+  shell: sleep 120
 
 
 - name: Create worker join token
