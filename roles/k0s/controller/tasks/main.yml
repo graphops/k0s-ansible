@@ -25,20 +25,9 @@
     state: restarted
     enabled: yes
 
-# - name: "Wait for k8s apiserver"
-#   become: true
-#   wait_for:
-#     host: localhost
-#     port: 6443
-#     timeout: 300
-
-# - name: Wait for k8s apiserver
-#   become: true
-#   wait_for:
-#     host: localhost
-#     port: 6443
-#     delay: 15
-#     timeout: 180
-
-- name: Wait for node to come online
-  shell: sleep 200
+- name: "Wait for k8s apiserver"
+  become: true
+  wait_for:
+    host: localhost
+    port: 6443
+    timeout: 300

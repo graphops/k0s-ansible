@@ -6,7 +6,7 @@
 
 - name: Create k0s initial controller service with install command
   register: install_initial_controller_cmd
-  command: k0s install controller --config {{ k0s_config_dir }}/k0s.yaml --enable-worker --enable-k0s-cloud-provider=true {{ extra_args | default(omit) }}
+  command: k0s install controller --config {{ k0s_config_dir }}/k0s.yaml --enable-k0s-cloud-provider=true {{ extra_args | default(omit) }}
   changed_when: install_initial_controller_cmd | length > 0
   when: k0scontroller is failed
 
@@ -21,14 +21,12 @@
     state: restarted
     enabled: yes
 
-# - name: Wait for k8s apiserver
-#   wait_for:
-#     host: "{{ lb_address }}"
-#     port: 6443
-#     delay: 15
-#     timeout: 180
-- name: Wait for node to come online
-  shell: sleep 120
+- name: Wait for k8s apiserver
+  wait_for:
+    host: localhost
+    port: 6443
+    delay: 15
+    timeout: 300
 
 
 - name: Create worker join token
