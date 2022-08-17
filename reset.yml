@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: k0s
   gather_facts: yes
   become: yes
   roles:

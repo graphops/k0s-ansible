@@ -11,8 +11,13 @@
   changed_when: get_mounted_filesystems.stdout | length > 0
 
 - name: Umount filesystem
+  become: true
   mount:
     path: "{{ item }}"
-    state: unmounted
+    state: absent
+  retries: 3
+  delay: 5
+  register: result
+  until: result is not failed
   with_items:
     "{{ get_mounted_filesystems.stdout_lines }}"
